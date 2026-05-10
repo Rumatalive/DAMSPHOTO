@@ -1,0 +1,17 @@
+[
+  {
+    "filename": "images/image1.jpg",
+    "category": "Portraits",
+    "uploadedAt": "2026-04-29"
+  },
+  {
+    "filename": "images/image2.jpg",
+    "category": "Wedding",
+    "uploadedAt": "2026-04-22"
+  },
+  {
+    "filename": "images/image3.jpg",
+    "category": "Events",
+    "uploadedAt": "2026-04-12"
+  }
+]

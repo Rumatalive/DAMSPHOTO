@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | DAM Photography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-dark:#111314; --text-light:#eaeaea; --text-muted:#9a9a9a; --accent:#1ecad3; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body { background:var(--bg-dark); color:var(--text-light); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .card { width:100%; max-width:520px; background:#0d0f10; border:1px solid #1a1c1d; border-radius:18px; padding:28px; }
+    h1 { font-size:22px; margin-bottom:8px; }
+    p { color:var(--text-muted); font-size:14px; line-height:1.7; }
+    .btn { width:100%; padding:14px 18px; border:none; cursor:pointer; border-radius:12px; background:var(--accent); color:#000; font-weight:800; transition:transform .15s ease; }
+    .btn:hover { transform:translateY(-2px); }
+    .form-group { margin-top:16px; }
+    label { display:block; font-size:13px; color:var(--text-muted); margin-bottom:8px; }
+    input { width:100%; padding:14px; background:#111314; border:1px solid #1a1c1d; border-radius:12px; color:var(--text-light); font-size:14px; }
+    input:focus { outline:none; border-color:var(--accent); }
+    .error { display:none; background:rgba(255,80,80,0.12); border:1px solid rgba(255,80,80,0.3); color:#ffb5b5; padding:10px 12px; border-radius:12px; margin-top:14px; font-size:13px; }
+    .row { display:flex; justify-content:space-between; gap:12px; margin-top:14px; }
+    a { color:var(--accent); text-decoration:none; font-weight:700; font-size:13px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px;">
+      <div style="font-weight:800; letter-spacing:.5px;">DAM.</div>
+      <div id="auth-status" style="color:var(--text-muted); font-size:13px;"></div>
+    </div>
+
+    <h1>Create an account</h1>
+    <p>Sign up is demo-only and uses localStorage.</p>
+
+    <div class="error" id="errorBox"></div>
+
+    <form id="signupForm" autocomplete="on">
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input id="signupEmail" name="email" type="email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+        <input id="signupPassword" name="password" type="password" placeholder="Create a password" minlength="4" required />
+      </div>
+      <div style="margin-top:16px;">
+        <button class="btn" type="submit">Create account</button>
+      </div>
+      <div class="row">
+        <a href="login.html">Login</a>
+        <a href="index.html">Back</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    const form = document.getElementById('signupForm');
+    const errorBox = document.getElementById('errorBox');
+
+    function showError(msg) {
+      if (!errorBox) return;
+      errorBox.textContent = msg;
+      errorBox.style.display = 'block';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+      const password = document.getElementById('signupPassword').value;
+
+      const users = window.DAM_AUTH.getUsers();
+      const exists = users.some(u => String(u.email).toLowerCase() === email);
+
+      if (exists) {
+        showError('This email already has an account.');
+        return;
+      }
+
+      users.push({ email, password });
+      window.DAM_AUTH.setUsers(users);
+      window.DAM_AUTH.setSession(email);
+      window.location.replace('admin.html');
+    });
+
+    if (window.DAM_AUTH && typeof window.DAM_AUTH.initAuthPage === 'function') {
+      window.DAM_AUTH.initAuthPage();
+    }
+  </script>
+</body>
+</html>
+

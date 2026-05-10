@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel - DAM</title>
+  <style>
+    body {
+      background: #0b0d0e;
+      color: white;
+      font-family: Poppins;
+      padding: 20px;
+    }
+
+    .card {
+      background: #111314;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    button {
+      margin-left: 5px;
+      padding: 8px 12px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .approve { background: #1ecad3; }
+    .reject { background: red; color: white; }
+  </style>
+</head>
+<body>
+
+<h2>Photographer Applications</h2>
+
+<div id="list"></div>
+
+<script>
+let photographers = JSON.parse(localStorage.getItem("photographers")) || [
+  {name:"John Doe", location:"Kigali", status:"pending"},
+  {name:"Alice", location:"Nairobi", status:"pending"}
+];
+
+function load(){
+  let box = document.getElementById("list");
+  box.innerHTML = "";
+
+  photographers.forEach((p, i) => {
+    if(p.status === "pending"){
+      box.innerHTML += `
+        <div class="card">
+          <div>
+            <b>${p.name}</b><br>
+            ${p.location}<br>
+            Status: ${p.status}
+          </div>
+          <div>
+            <button class="approve" onclick="approve(${i})">Approve</button>
+            <button class="reject" onclick="reject(${i})">Reject</button>
+          </div>
+        </div>
+      `;
+    }
+  });
+}
+
+function approve(i){
+  photographers[i].status = "approved";
+  localStorage.setItem("photographers", JSON.stringify(photographers));
+  load();
+}
+
+function reject(i){
+  photographers[i].status = "rejected";
+  localStorage.setItem("photographers", JSON.stringify(photographers));
+  load();
+}
+
+load();
+</script>
+
+</body>
+</html>

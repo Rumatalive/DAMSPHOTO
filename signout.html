@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Out | DAM Photography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #111314;
+      --text-light: #eaeaea;
+      --text-muted: #9a9a9a;
+      --accent: #1ecad3;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: var(--bg-dark); color: var(--text-light); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .card { width: 100%; max-width: 520px; background: #0d0f10; border: 1px solid #1a1c1d; border-radius: 18px; padding: 26px; }
+    h1 { font-size: 22px; margin-bottom: 10px; }
+    p { color: var(--text-muted); line-height: 1.7; font-size: 14px; }
+    .pill { display: inline-block; margin-top: 14px; padding: 10px 14px; border-radius: 999px; background: rgba(30,202,211,0.12); color: var(--accent); font-weight: 700; font-size: 13px; }
+    a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Signing out…</h1>
+    <p>Please wait while your session is cleared.</p>
+    <div class="pill" id="status">0%</div>
+    <p style="margin-top:16px;">If you are not redirected automatically, <a href="index.html">go back home</a>.</p>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    (function () {
+      const statusEl = document.getElementById('status');
+      let pct = 0;
+      const t = setInterval(() => {
+        pct = Math.min(100, pct + 25);
+        if (statusEl) statusEl.textContent = pct + '%';
+        if (pct >= 100) clearInterval(t);
+      }, 250);
+
+      if (window.DAM_AUTH && typeof window.DAM_AUTH.clearSession === 'function') {
+        window.DAM_AUTH.clearSession();
+      }
+
+      setTimeout(() => {
+        window.location.replace('index.html');
+      }, 900);
+    })();
+  </script>
+</body>
+</html>
+

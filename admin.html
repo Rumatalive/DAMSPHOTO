@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Dashboard | DAM</title>
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --bg:#0b0d0e;
+  --card:#111314;
+  --line:#1f2224;
+  --text:#eaeaea;
+  --muted:#9a9a9a;
+  --accent:#1ecad3;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+header{
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  background:rgba(11,13,14,0.9);
+  backdrop-filter:blur(10px);
+  z-index:100;
+}
+
+.logo{
+  font-weight:700;
+  color:var(--accent);
+  font-size:18px;
+}
+
+.header-icons{
+  display:flex;
+  gap:15px;
+  font-size:18px;
+  color:var(--muted);
+}
+
+/* WRAP */
+.wrap{
+  padding:30px;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:25px;
+}
+
+/* TITLES */
+h1{
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+h2{
+  margin:20px 0 10px;
+  font-size:16px;
+  color:var(--accent);
+}
+
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:collapse;
+  overflow:hidden;
+  border-radius:10px;
+}
+
+th,td{
+  padding:12px;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+  text-align:left;
+}
+
+th{
+  color:var(--accent);
+  font-weight:600;
+}
+
+/* BUTTONS */
+button{
+  padding:6px 10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+  margin:2px;
+}
+
+.approve{
+  background:var(--accent);
+  color:#000;
+}
+
+.reject{
+  background:#ff3b3b;
+  color:#fff;
+}
+
+/* STATUS COLORS */
+.status-approved{color:var(--accent);}
+.status-rejected{color:#ff3b3b;}
+.status-pending{color:orange;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .wrap{padding:15px;}
+  header{padding:15px;}
+  th,td{font-size:12px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <i class="fa-solid fa-camera"></i> DAM Admin
+  </div>
+
+  <div class="header-icons">
+    <i class="fa-solid fa-bell"></i>
+    <i class="fa-solid fa-user-shield"></i>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h1><i class="fa-solid fa-gauge"></i> Dashboard Overview</h1>
+    <p style="color:var(--muted);font-size:13px;">
+      Manage photographers, bookings and messages
+    </p>
+  </div>
+
+  <div class="card" id="content"></div>
+
+</div>
+
+<script>
+
+let photographers = JSON.parse(localStorage.getItem("photographers")) || [];
+let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+let messages = JSON.parse(localStorage.getItem("messages")) || [];
+
+/* APPROVE */
+function approve(id){
+  photographers = photographers.map(p =>
+    p.id === id ? {...p, status:"approved"} : p
+  );
+  localStorage.setItem("photographers", JSON.stringify(photographers));
+  render();
+}
+
+/* REJECT */
+function reject(id){
+  photographers = photographers.map(p =>
+    p.id === id ? {...p, status:"rejected"} : p
+  );
+  localStorage.setItem("photographers", JSON.stringify(photographers));
+  render();
+}
+
+/* STATUS CLASS */
+function statusClass(status){
+  if(status === "approved") return "status-approved";
+  if(status === "rejected") return "status-rejected";
+  return "status-pending";
+}
+
+/* RENDER */
+function render(){
+
+const photographerRows = photographers.map((p,i)=>`
+<tr>
+<td>${i+1}</td>
+<td><i class="fa-solid fa-user"></i> ${p.name}</td>
+<td>${p.email}</td>
+<td><i class="fa-solid fa-location-dot"></i> ${p.location}</td>
+<td>${p.experience} yrs</td>
+<td>${p.specialization}</td>
+
+<td class="${statusClass(p.status)}">
+${p.status}
+</td>
+
+<td>
+<button class="approve" onclick="approve(${p.id})">
+<i class="fa-solid fa-check"></i>
+</button>
+
+<button class="reject" onclick="reject(${p.id})">
+<i class="fa-solid fa-xmark"></i>
+</button>
+</td>
+</tr>
+`).join("");
+
+const bookingRows = bookings.map((b,i)=>`
+<tr>
+<td>${i+1}</td>
+<td>${b.name}</td>
+<td>${b.email}</td>
+<td>${b.date}</td>
+<td>${b.service}</td>
+<td>${b.message}</td>
+<td>${b.status}</td>
+</tr>
+`).join("");
+
+const messageRows = messages.map((m,i)=>`
+<tr>
+<td>${i+1}</td>
+<td>${m.name}</td>
+<td>${m.email}</td>
+<td>${m.message}</td>
+<td>${m.date || "N/A"}</td>
+</tr>
+`).join("");
+
+document.getElementById("content").innerHTML = `
+
+<h2><i class="fa-solid fa-camera"></i> Photographers</h2>
+<table>
+<tr>
+<th>#</th><th>Name</th><th>Email</th><th>Location</th>
+<th>Exp</th><th>Type</th><th>Status</th><th>Action</th>
+</tr>
+${photographerRows || "<tr><td colspan='8'>No data</td></tr>"}
+</table>
+
+<h2><i class="fa-solid fa-calendar"></i> Bookings</h2>
+<table>
+<tr>
+<th>#</th><th>Name</th><th>Email</th><th>Date</th>
+<th>Service</th><th>Message</th><th>Status</th>
+</tr>
+${bookingRows || "<tr><td colspan='7'>No bookings</td></tr>"}
+</table>
+
+<h2><i class="fa-solid fa-message"></i> Messages</h2>
+<table>
+<tr>
+<th>#</th><th>Name</th><th>Email</th><th>Message</th><th>Date</th>
+</tr>
+${messageRows || "<tr><td colspan='5'>No messages</td></tr>"}
+</table>
+
+`;
+
+}
+
+render();
+</script>
+
+</body>
+</html>

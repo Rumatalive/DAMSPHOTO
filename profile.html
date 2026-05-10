@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Photographer Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+  margin:0;
+  font-family:Poppins;
+  background:#0b0d0e;
+  color:#eaeaea;
+}
+
+.container {
+  max-width:900px;
+  margin:auto;
+  padding:30px;
+}
+
+.card {
+  background:#111314;
+  padding:20px;
+  border-radius:15px;
+}
+
+.cover {
+  height:200px;
+  background:#1ecad3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  font-weight:bold;
+  color:#000;
+  border-radius:15px;
+}
+
+.info {
+  margin-top:10px;
+  color:#aaa;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+img {
+  width:100%;
+  margin-top:10px;
+  border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div id="profile"></div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+let photographers = JSON.parse(localStorage.getItem("photographers")) || [];
+
+let p = photographers.find(x => x.id == id);
+
+let box = document.getElementById("profile");
+
+if(p){
+
+  let images = p.portfolio || [];
+
+  box.innerHTML = `
+    <div class="card">
+
+      <div class="cover">${p.name.charAt(0)}</div>
+
+      <h2>${p.name}</h2>
+
+      <div class="info"><i class="fa fa-location-dot"></i> ${p.location}</div>
+      <div class="info"><i class="fa fa-briefcase"></i> ${p.experience} years</div>
+      <div class="info"><i class="fa fa-star"></i> ${p.specialization}</div>
+
+      <p style="color:#aaa;margin-top:10px;">${p.bio || ""}</p>
+
+      <h3>Portfolio</h3>
+
+      ${images.length ? images.map(i => `<img src="${i}">`).join("") : "<p>No work uploaded</p>"}
+
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>

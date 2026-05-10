@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAM – Photographer Registration</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0b0d0e;
+  color: #eaeaea;
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #111314;
+  border-radius: 18px;
+}
+
+h1 {
+  text-align: center;
+  color: #1ecad3;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+input, textarea, select {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #0b0d0e;
+  color: #fff;
+}
+
+textarea { height: 100px; }
+
+.upload-box {
+  padding: 15px;
+  border: 1px dashed #1ecad3;
+  border-radius: 12px;
+}
+
+.btn {
+  background: #1ecad3;
+  color: #000;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Join DAM Photographers</h1>
+
+<form id="registerForm">
+
+  <div class="row">
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email Address" required>
+  </div>
+
+  <div class="row">
+    <input type="text" id="phone" placeholder="Phone Number" required>
+    <input type="text" id="location" placeholder="Location" required>
+  </div>
+
+  <div class="row">
+    <input type="number" id="experience" placeholder="Experience" required>
+
+    <select id="specialization" required>
+      <option value="">Select Specialization</option>
+      <option>Wedding</option>
+      <option>Portrait</option>
+      <option>Events</option>
+      <option>Sports</option>
+      <option>Travel</option>
+    </select>
+  </div>
+
+  <textarea id="bio" placeholder="Biography"></textarea>
+
+  <div class="upload-box">
+    <label>Profile Photo</label><br><br>
+    <input type="file" id="profilePhoto" accept="image/*">
+  </div>
+
+  <div class="upload-box">
+    <label>Portfolio Images</label><br><br>
+    <input type="file" id="portfolio" accept="image/*" multiple>
+  </div>
+
+  <button class="btn" type="submit">Submit Application</button>
+
+</form>
+</div>
+
+<script>
+const form = document.getElementById("registerForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  let photographers = JSON.parse(localStorage.getItem("photographers")) || [];
+
+  const toBase64 = file => new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
+
+  const profileFile = document.getElementById("profilePhoto").files[0];
+  const portfolioFiles = document.getElementById("portfolio").files;
+
+  let profilePhoto = "";
+  if(profileFile) profilePhoto = await toBase64(profileFile);
+
+  let portfolio = [];
+  for(let i=0;i<portfolioFiles.length;i++){
+    portfolio.push(await toBase64(portfolioFiles[i]));
+  }
+
+  const newPhotographer = {
+    id: Date.now(),
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    location: document.getElementById("location").value,
+    experience: document.getElementById("experience").value,
+    specialization: document.getElementById("specialization").value,
+    bio: document.getElementById("bio").value,
+    profilePhoto,
+    portfolio,
+    status: "pending"
+  };
+
+  photographers.push(newPhotographer);
+
+  localStorage.setItem("photographers", JSON.stringify(photographers));
+
+  alert("Application submitted!");
+
+  form.reset();
+});
+</script>
+
+</body>
+</html>

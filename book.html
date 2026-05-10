@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Book Session | DAM Photography</title>
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --bg:#0b0d0e;
+  --card:#111314;
+  --text:#eaeaea;
+  --muted:#9aa0a6;
+  --accent:#1ecad3;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 60px;
+  border-bottom:1px solid #1a1c1d;
+}
+
+.logo{
+  font-weight:800;
+  color:var(--accent);
+  font-size:20px;
+}
+
+nav{
+  display:flex;
+  gap:18px;
+}
+
+nav a{
+  text-decoration:none;
+  color:var(--text);
+  font-size:14px;
+}
+
+nav a:hover{
+  color:var(--accent);
+}
+
+.btn{
+  background:var(--accent);
+  color:#000;
+  padding:10px 16px;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:80px 20px 30px;
+}
+
+.hero h1{
+  font-size:42px;
+}
+
+.hero span{
+  color:var(--accent);
+}
+
+.hero p{
+  color:var(--muted);
+  margin-top:10px;
+}
+
+/* LAYOUT */
+.container{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:30px;
+  padding:50px 60px;
+}
+
+/* FORM */
+.card{
+  background:var(--card);
+  padding:25px;
+  border-radius:16px;
+  border:1px solid #1a1c1d;
+}
+
+.form-group{
+  margin-bottom:14px;
+  position:relative;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px 12px 12px 40px;
+  border-radius:10px;
+  border:1px solid #1a1c1d;
+  background:#0b0d0e;
+  color:#fff;
+  outline:none;
+}
+
+textarea{
+  height:120px;
+}
+
+/* ICONS INSIDE INPUT */
+.input-icon{
+  position:absolute;
+  top:12px;
+  left:12px;
+  color:var(--accent);
+  font-size:14px;
+}
+
+/* SIDE INFO */
+.info-box h3{
+  margin-bottom:10px;
+}
+
+.info-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:12px 0;
+  color:var(--muted);
+}
+
+.info-item i{
+  color:var(--accent);
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:12px;
+  background:var(--accent);
+  border:none;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  header{
+    padding:15px 20px;
+  }
+
+  .container{
+    grid-template-columns:1fr;
+    padding:20px;
+  }
+
+  nav{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">DAM.</div>
+
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="explore.html">Explore</a>
+    <a href="service.html">Services</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <a class="btn" href="book.html">Book Now</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Book Your <span>Session</span></h1>
+  <p>Fill the form and get approved by admin before shooting starts</p>
+</section>
+
+<!-- CONTENT -->
+<section class="container">
+
+  <!-- FORM -->
+  <div class="card">
+    <h3><i class="fa fa-calendar"></i> Booking Form</h3>
+
+    <form id="bookingForm">
+
+      <div class="form-group">
+        <i class="fa fa-user input-icon"></i>
+        <input id="name" type="text" placeholder="Full Name" required>
+      </div>
+
+      <div class="form-group">
+        <i class="fa fa-envelope input-icon"></i>
+        <input id="email" type="email" placeholder="Email Address" required>
+      </div>
+
+      <div class="form-group">
+        <i class="fa fa-calendar input-icon"></i>
+        <input id="date" type="date" required>
+      </div>
+
+      <div class="form-group">
+        <i class="fa fa-camera input-icon"></i>
+        <select id="service" required>
+          <option value="">Select Service</option>
+          <option>Portrait Photography</option>
+          <option>Wedding Photography</option>
+          <option>Event Coverage</option>
+          <option>Travel Photography</option>
+          <option>Commercial Photography</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <i class="fa fa-message input-icon"></i>
+        <textarea id="details" placeholder="Additional details..."></textarea>
+      </div>
+
+      <button type="submit">Submit Booking</button>
+    </form>
+  </div>
+
+  <!-- INFO -->
+  <div class="card info-box">
+    <h3>Why Book With Us?</h3>
+
+    <div class="info-item">
+      <i class="fa fa-star"></i> Professional HD Photography
+    </div>
+
+    <div class="info-item">
+      <i class="fa fa-clock"></i> Fast Delivery (24–72h)
+    </div>
+
+    <div class="info-item">
+      <i class="fa fa-check"></i> Admin Approval System
+    </div>
+
+    <div class="info-item">
+      <i class="fa fa-location-dot"></i> Available in Rwanda & Worldwide
+    </div>
+  </div>
+
+</section>
+
+<!-- SCRIPT -->
+<script>
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+  const newBooking = {
+    id: Date.now(),
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    date: document.getElementById("date").value,
+    service: document.getElementById("service").value,
+    message: document.getElementById("details").value,
+    status: "pending"
+  };
+
+  bookings.push(newBooking);
+
+  localStorage.setItem("bookings", JSON.stringify(bookings));
+
+  alert("Booking submitted successfully!");
+  this.reset();
+});
+</script>
+
+</body>
+</html>

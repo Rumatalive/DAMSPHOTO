@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login - DAM</title>
+  <style>
+    body {
+      background: #0b0d0e;
+      color: #fff;
+      font-family: Poppins;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: #111314;
+      padding: 30px;
+      border-radius: 15px;
+      width: 300px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #0b0d0e;
+      border: 1px solid #333;
+      color: #fff;
+      border-radius: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #1ecad3;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Admin Login</h2>
+
+  <input type="text" id="user" placeholder="Username">
+  <input type="password" id="pass" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+</div>
+
+<script>
+function login(){
+  const u = document.getElementById("user").value;
+  const p = document.getElementById("pass").value;
+
+  if(u === "admin" && p === "1234"){
+    window.location.href = "admin-panel.html";
+  } else {
+    alert("Wrong credentials");
+  }
+}
+</script>
+
+</body>
+</html>

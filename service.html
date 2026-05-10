@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Services | DAM Photography</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0f1112;
+  --card:#15181a;
+  --text:#eaeaea;
+  --muted:#9a9a9a;
+  --accent:#1ecad3;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{background:var(--bg);color:var(--text);}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 60px;
+  border-bottom:1px solid #1c1f21;
+  position:sticky;
+  top:0;
+  background:rgba(15,17,18,0.95);
+  backdrop-filter:blur(10px);
+}
+
+.logo{font-weight:700;font-size:20px;}
+
+nav a{
+  color:var(--text);
+  margin:0 12px;
+  text-decoration:none;
+  font-size:14px;
+  transition:.3s;
+}
+nav a:hover{color:var(--accent);}
+
+.btn{
+  background:var(--accent);
+  padding:10px 16px;
+  border-radius:8px;
+  color:#000;
+  font-weight:600;
+  font-size:13px;
+  text-decoration:none;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:90px 20px 40px;
+}
+
+.hero h1{
+  font-size:44px;
+}
+.hero h1 span{color:var(--accent);}
+.hero p{
+  max-width:700px;
+  margin:10px auto;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* SERVICES GRID */
+.services{
+  padding:60px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:18px;
+  overflow:hidden;
+  transition:.3s;
+  border:1px solid #1c1f21;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  border-color:var(--accent);
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.card-body{
+  padding:20px;
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:16px;
+  margin-bottom:10px;
+}
+
+.icon{
+  width:20px;
+  height:20px;
+  color:var(--accent);
+  flex-shrink:0;
+}
+
+.card p{
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* CTA */
+.cta{
+  text-align:center;
+  padding:80px 20px;
+  background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+  url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d') center/cover;
+}
+
+.cta h2{
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.cta p{
+  color:var(--muted);
+  margin-bottom:20px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  background:#0b0d0e;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  header{padding:15px 20px;flex-wrap:wrap;gap:10px;}
+  .services{padding:20px;}
+  .hero h1{font-size:32px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">DAM.</div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="service.html" style="color:var(--accent)">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="book.html" class="btn">Book Now</a>
+</header>
+
+<section class="hero">
+  <h1>Our <span>Services</span></h1>
+  <p>We deliver high-end photography services that capture emotions, stories, and unforgettable moments with a cinematic touch.</p>
+</section>
+
+<section class="services">
+
+  <!-- CARD -->
+  <div class="card">
+    <img src="images/image5 (2).jpg">
+    <div class="card-body">
+      <div class="card-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 7h16l-1.5 12h-13z"/>
+          <path d="M9 7V4h6v3"/>
+        </svg>
+        Portrait Photography
+      </div>
+      <p>Professional portraits with perfect lighting and emotional storytelling for individuals and brands.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/image1.jpg">
+    <div class="card-body">
+      <div class="card-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 10l-7-7-7 7"/>
+          <path d="M5 10v10h14V10"/>
+        </svg>
+        Wedding Photography
+      </div>
+      <p>Capturing love stories with emotional, timeless and cinematic wedding coverage.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/image6.jpg">
+    <div class="card-body">
+      <div class="card-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="9"/>
+        </svg>
+        Travel & Lifestyle
+      </div>
+      <p>Creative storytelling through travel, culture, and real-life lifestyle photography.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/image3.jpg">
+    <div class="card-body">
+      <div class="card-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 7h18v10H3z"/>
+          <path d="M7 3h10v4H7z"/>
+        </svg>
+        Event Coverage
+      </div>
+      <p>Corporate and private event coverage with professional editing and fast delivery.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/image4.jpg">
+    <div class="card-body">
+      <div class="card-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 21l16-16"/>
+          <path d="M14 7l3 3"/>
+        </svg>
+        Photo Editing
+      </div>
+      <p>Advanced retouching, color grading, and cinematic finishing for premium results.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="images/image1.jpg">
+    <div class="card-body">
+      <div class="card-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L6.5 20l2-7L3 9h7z"/>
+        </svg>
+        Drone Photography
+      </div>
+      <p>Aerial cinematic shots for events, landscapes, and creative commercial projects.</p>
+    </div>
+  </div>
+
+</section>
+
+<section class="cta">
+  <h2>Ready to Work With Us?</h2>
+  <p>Let’s capture your next unforgettable moment together.</p>
+  <a href="book.html" class="btn">Book a Session</a>
+</section>
+
+<footer>
+  © 2025 DAM Photography. All rights reserved.
+</footer>
+
+</body>
+</html>
